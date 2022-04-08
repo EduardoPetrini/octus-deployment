@@ -1,0 +1,24 @@
+{
+  "name": "@eduardopetrini/octus-deployment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardoPetrini/octus-deployment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EduardoPetrini/octus-deployment/issues"
+  },
+  "homepage": "https://github.com/EduardoPetrini/octus-deployment#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
