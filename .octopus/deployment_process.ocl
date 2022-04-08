@@ -50,7 +50,7 @@ step "Script 1" {
         }
         worker_pool_variable = ""
 
-        packages "octus-deployment-0.0.1" {
+        packages "octus-deployment" {
             acquisition_location = "Server"
             feed = "GitHub"
             package_id = "EduardoPetrini/octus-deployment"
