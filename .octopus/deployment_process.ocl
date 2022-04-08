@@ -1,0 +1,64 @@
+step "Script 1" {
+    properties = {
+        Octopus.Action.TargetRoles = "deployment"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                Write-Host "Hello world!"
+                
+                $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+                
+                Write-Host $date
+                
+                $testMap = @{
+                    "key1" = "value1"
+                    "key2" = "value2"
+                }
+                
+                
+                $keys = $testMap.keys
+                
+                $keys | ForEach-Object { 
+                  $item = $testMap[$_]
+                  Write-Host "'$_' = '$item'" 
+                }
+                
+                Get-ChildItem -Path "./"
+                
+                Write-Host "Getting the project directories"
+                # in pre-deploy, in post-deploy if custom installation directory has not been defined
+                $extractPath = $OctopusParameters['Octopus.Action.Package.InstallationDirectoryPath'] 
+                # if a custom installation directory has been defined
+                $customPath = $OctopusParameters['Octopus.Action.Package.CustomInstallationDirectory']
+                
+                Write-Host "Extract path"
+                Write-Host $extractPath
+                Get-ChildItem -Path $extractPath
+                
+                Write-Host "Custom path"
+                Write-Host $customPath
+                Get-ChildItem -Path $customPath
+                
+                
+            EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+
+        packages "octus-deployment" {
+            acquisition_location = "Server"
+            feed = "GitHub"
+            package_id = "EduardoPetrini/octus-deployment"
+            properties = {
+                Extract = "True"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
