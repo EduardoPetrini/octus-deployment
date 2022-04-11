@@ -50,10 +50,10 @@ step "Script 1" {
         }
         worker_pool_variable = ""
 
-        packages "octus-deployment" {
+        packages "eduardopetrini.octus-deployment" {
             acquisition_location = "Server"
-            feed = "GitHub"
-            package_id = "EduardoPetrini/octus-deployment"
+            feed = "Octopus Server (built-in)"
+            package_id = "eduardopetrini.octus-deployment"
             properties = {
                 Extract = "True"
                 Purpose = ""
