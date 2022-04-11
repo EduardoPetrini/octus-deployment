@@ -45,6 +45,7 @@ step "Script 1" {
                 
                 Set-Location "$extractPath"
                 
+                
                 Get-ChildItem -Path $path -Directory -Recurse | 
                   ForEach-Object {
                     Set-Location $_;
@@ -58,7 +59,8 @@ step "Script 1" {
                 Write-host "Check if the node_module was created"
                 Get-ChildItem -Path "./"
                 
-                
+                $env = $OctopusParameters['Octopus.Environment.Name']
+                Write-Host "Environment: $env"
             EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
