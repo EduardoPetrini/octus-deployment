@@ -31,7 +31,7 @@ step "Script 1" {
                 
                 Write-Host "Getting the project directories"
                 # in pre-deploy, in post-deploy if custom installation directory has not been defined
-                $extractPath = $OctopusParameters['Octopus.Action.Package.InstallationDirectoryPath'] 
+                $extractPath = $OctopusParameters['Octopus.Action.Package.InstallationDirectoryPath']
                 # if a custom installation directory has been defined
                 $customPath = $OctopusParameters['Octopus.Action.Package.CustomInstallationDirectory']
                 
@@ -43,17 +43,34 @@ step "Script 1" {
                 Write-Host $customPath
                 Get-ChildItem -Path $customPath
                 
+                Set-Location "$extractPath"
                 
+                
+                Get-ChildItem -Path $path -Directory -Recurse | 
+                  ForEach-Object {
+                    Set-Location $_;
+                  }
+                
+                Get-ChildItem -Path "./"
+                
+                Write-host "Running the NPM Install command"
+                npm install
+                
+                Write-host "Check if the node_module was created"
+                Get-ChildItem -Path "./"
+                
+                $env = $OctopusParameters['Octopus.Environment.Name']
+                Write-Host "Environment: $env"
             EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
         }
         worker_pool_variable = ""
 
-        packages "octus-deployment" {
+        packages "eduardopetrini.octus-deployment" {
             acquisition_location = "Server"
-            feed = "GitHub"
-            package_id = "EduardoPetrini/octus-deployment"
+            feed = "Octopus Server (built-in)"
+            package_id = "eduardopetrini.octus-deployment"
             properties = {
                 Extract = "True"
                 Purpose = ""
