@@ -43,7 +43,7 @@ step "Script 1" {
                 Write-Host $customPath
                 Get-ChildItem -Path $customPath
                 
-                Set-Location $extractPath
+                # Set-Location $extractPath
                 
                 Get-ChildItem -Path './'
                 
