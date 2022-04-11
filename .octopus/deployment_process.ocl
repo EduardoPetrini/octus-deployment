@@ -31,13 +31,9 @@ step "Script 1" {
                 
                 Write-Host "Getting the project directories"
                 # in pre-deploy, in post-deploy if custom installation directory has not been defined
-                $extractPath = $OctopusParameters["Octopus.Action[Script 1].Package.InstallationDirectoryPath"] 
+                $extractPath = $OctopusParameters['Octopus.Action.Package.InstallationDirectoryPath']
                 # if a custom installation directory has been defined
-                $customPath = $OctopusParameters["Octopus.Action[Script 1].Package.CustomInstallationDirectory"]
-                
-                $otherPath = $OctopusParameters['Octopus.Action.Output.Package.InstallationDirectoryPath']
-                $otherPath2 = $OctopusParameters['Octopus.Action.Package.InstallationDirectoryPath']
-                
+                $customPath = $OctopusParameters['Octopus.Action.Package.CustomInstallationDirectory']
                 
                 Write-Host "Extract path"
                 Write-Host $extractPath
@@ -47,13 +43,7 @@ step "Script 1" {
                 Write-Host $customPath
                 Get-ChildItem -Path $customPath
                 
-                Write-Host "Other path"
-                Write-Host $otherPath
-                
-                Write-Host "Other path 2"
-                Write-Host $otherPath2
-                
-                Set-Location "eduardopetrini.octus-deployment/"
+                Set-Location "$extractPath"
                 
                 Get-ChildItem -Path "./"
                 
