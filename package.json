@@ -20,5 +20,8 @@
   "homepage": "https://github.com/EduardoPetrini/octus-deployment#readme",
   "dependencies": {
     "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@octopusdeploy/octopackjs": "^0.2.4"
   }
 }
