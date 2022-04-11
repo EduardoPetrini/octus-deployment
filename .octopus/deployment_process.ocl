@@ -45,6 +45,11 @@ step "Script 1" {
                 
                 Set-Location "$extractPath"
                 
+                Get-ChildItem -Path $path -Directory -Recurse | 
+                  ForEach-Object {
+                    Set-Location $_;
+                  }
+                
                 Get-ChildItem -Path "./"
                 
                 Write-host "Running the NPM Install command"
